@@ -8,4 +8,8 @@ module KeystoneUiHelper
   def ui_button(**args)
     render Keystone::UI::ButtonComponent.new(**args)
   end
+
+  def table_component(**args)
+    render Keystone::UI::TableComponent.new(**args)
+  end
 end

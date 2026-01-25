@@ -1,0 +1,44 @@
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="mt-8 flow-root">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <div class="overflow-hidden shadow-sm outline-1 outline-black/5 sm:rounded-lg dark:shadow-none dark:-outline-offset-1 dark:outline-white/10">
+          <table class="relative min-w-full divide-y divide-gray-300 dark:divide-white/15">
+            <thead class="bg-gray-50 dark:bg-gray-800/75">
+              <tr>
+                <% header_cells.each do |cell| %>
+                  <th scope="<%= cell[:scope] %>" class="<%= cell[:classes] %>">
+                    <% if cell[:sr_only] %>
+                      <span class="sr-only"><%= cell[:label] %></span>
+                    <% else %>
+                      <%= cell[:label] %>
+                    <% end %>
+                  </th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white dark:divide-white/10 dark:bg-gray-800/50">
+              <% if empty? %>
+                <% if @empty_message.present? %>
+                  <tr>
+                    <td class="px-3 py-4 text-sm text-gray-500 dark:text-gray-400" colspan="<%= column_count %>">
+                      <%= @empty_message %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <% row_cells.each do |row| %>
+                  <tr>
+                    <% row.each do |cell| %>
+                      <%= content_tag(cell[:tag], cell[:content], class: cell[:classes]) %>
+                    <% end %>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

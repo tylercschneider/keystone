@@ -16,10 +16,15 @@ module Keystone
         @columns = columns
         @empty_message = empty_message
         @actions_block = nil
+        @link_blocks = {}
       end
 
       def before_render
         content
+      end
+
+      def link(column_key, &block)
+        @link_blocks[column_key] = block
       end
 
       def actions(&block)
@@ -31,15 +36,11 @@ module Keystone
       end
 
       def column_keys
-        @column_keys ||= @columns.map { |col| col.keys.reject { |k| k == :link }.first }
+        @column_keys ||= @columns.map { |col| col.keys.first }
       end
 
       def column_labels
         @column_labels ||= @columns.map { |col| col.values.first }
-      end
-
-      def column_links
-        @column_links ||= @columns.map { |col| col[:link] }
       end
 
       def header_cells
@@ -70,8 +71,8 @@ module Keystone
               classes: row_classes_for(index)
             }
 
-            link_proc = column_links[index]
-            cell[:href] = link_proc.call(item) if link_proc
+            link_block = @link_blocks[key]
+            cell[:href] = link_block.call(item) if link_block
 
             cell
           end

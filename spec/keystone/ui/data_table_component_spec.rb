@@ -168,23 +168,17 @@ RSpec.describe Keystone::Ui::DataTableComponent do
   end
 
   describe "linkable cells" do
-    let(:link_columns) do
-      [
-        { name: "Name", link: ->(item) { "/projects/#{item[:name].downcase}" } },
-        { quantity: "Quantity" },
-        { price: "Price" }
-      ]
-    end
-
-    it "includes :href in cell hash when column has a :link proc" do
-      component = described_class.new(items: hash_items, columns: link_columns)
+    it "includes :href in cell hash when link is registered for a column" do
+      component = described_class.new(items: hash_items, columns: columns)
+      component.link(:name) { |item| "/projects/#{item[:name].downcase}" }
       row = component.row_cells.first
 
       expect(row[0][:href]).to eq("/projects/apples")
     end
 
-    it "omits :href when column has no :link" do
-      component = described_class.new(items: hash_items, columns: link_columns)
+    it "omits :href when no link is registered for the column" do
+      component = described_class.new(items: hash_items, columns: columns)
+      component.link(:name) { |item| "/projects/#{item[:name].downcase}" }
       row = component.row_cells.first
 
       expect(row[1]).not_to have_key(:href)
@@ -192,34 +186,29 @@ RSpec.describe Keystone::Ui::DataTableComponent do
     end
 
     it "resolves link per item" do
-      component = described_class.new(items: hash_items, columns: link_columns)
+      component = described_class.new(items: hash_items, columns: columns)
+      component.link(:name) { |item| "/projects/#{item[:name].downcase}" }
 
       expect(component.row_cells[0][0][:href]).to eq("/projects/apples")
       expect(component.row_cells[1][0][:href]).to eq("/projects/bananas")
     end
 
-    it "extracts column keys correctly when :link is present" do
-      component = described_class.new(items: hash_items, columns: link_columns)
-      expect(component.column_keys).to eq([:name, :quantity, :price])
-    end
+    it "before_render evaluates the content block so links are registered" do
+      component = described_class.new(items: hash_items, columns: columns)
+      component.set_content_block do |table|
+        table.link(:name) { |item| "/projects/#{item[:name].downcase}" }
+      end
 
-    it "extracts column labels correctly when :link is present" do
-      component = described_class.new(items: hash_items, columns: link_columns)
-      expect(component.column_labels).to eq(["Name", "Quantity", "Price"])
+      expect(component.instance_variable_get(:@link_blocks)).to be_empty
+      component.before_render
+      expect(component.instance_variable_get(:@link_blocks)).to have_key(:name)
     end
   end
 
   describe "combined actions and linkable cells" do
-    let(:link_columns) do
-      [
-        { name: "Name", link: ->(item) { "/projects/#{item[:name].downcase}" } },
-        { quantity: "Quantity" },
-        { price: "Price" }
-      ]
-    end
-
     it "applies correct position classes with both features" do
-      component = described_class.new(items: [hash_items.first], columns: link_columns)
+      component = described_class.new(items: [hash_items.first], columns: columns)
+      component.link(:name) { |item| "/projects/#{item[:name].downcase}" }
       component.actions { |item| "Edit" }
 
       headers = component.header_cells
@@ -237,7 +226,8 @@ RSpec.describe Keystone::Ui::DataTableComponent do
     end
 
     it "includes actions in column_count with linkable columns" do
-      component = described_class.new(items: hash_items, columns: link_columns)
+      component = described_class.new(items: hash_items, columns: columns)
+      component.link(:name) { |item| "/projects/#{item[:name].downcase}" }
       component.actions { |item| "Edit" }
       expect(component.column_count).to eq(4)
     end

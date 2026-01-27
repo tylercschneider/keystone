@@ -46,12 +46,14 @@ Use the helpers in ERB. Consuming apps should not instantiate components directl
 <%= ui_data_table(
   items: @products,
   columns: [
-    { name: "Name", link: ->(item) { product_path(item) } },
+    { name: "Name" },
     { quantity: "Quantity" },
     { price: "Price" }
   ],
   empty_message: "No products found."
-) %>
+) do |table| %>
+  <% table.link(:name) { |item| product_path(item) } %>
+<% end %>
 ```
 
 ## Available Components
@@ -100,17 +102,19 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 
 **Linkable cells**
 
-Add a `:link` lambda to any column definition to wrap that cell's value in an `<a>` tag. The lambda receives the current item and must return a URL string.
+Register links via `table.link(:column_key)` in the block. The block receives the current item and must return a URL string. The cell's value is wrapped in an `<a>` tag.
 
 ```erb
 <%= ui_data_table(
   items: @products,
   columns: [
-    { name: "Name", link: ->(item) { product_path(item) } },
+    { name: "Name" },
     { quantity: "Quantity" },
     { price: "Price" }
   ]
-) %>
+) do |table| %>
+  <% table.link(:name) { |item| product_path(item) } %>
+<% end %>
 ```
 
 **Actions column**
@@ -121,10 +125,11 @@ Pass a block to add a trailing "Actions" column. The block receives the componen
 <%= ui_data_table(
   items: @products,
   columns: [
-    { name: "Name", link: ->(item) { product_path(item) } },
+    { name: "Name" },
     { status: "Status" }
   ]
 ) do |table| %>
+  <% table.link(:name) { |item| product_path(item) } %>
   <% table.actions do |item| %>
     <%= link_to "Edit", edit_product_path(item) %>
     <%= link_to "Delete", product_path(item), data: { turbo_method: :delete } %>

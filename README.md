@@ -46,7 +46,7 @@ Use the helpers in ERB. Consuming apps should not instantiate components directl
 <%= ui_data_table(
   items: @products,
   columns: [
-    { name: "Name" },
+    { name: "Name", link: ->(item) { product_path(item) } },
     { quantity: "Quantity" },
     { price: "Price" }
   ],
@@ -97,6 +97,42 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 **Optional props**
 
 - `empty_message:` (String) — message displayed when `items` is empty
+
+**Linkable cells**
+
+Add a `:link` lambda to any column definition to wrap that cell's value in an `<a>` tag. The lambda receives the current item and must return a URL string.
+
+```erb
+<%= ui_data_table(
+  items: @products,
+  columns: [
+    { name: "Name", link: ->(item) { product_path(item) } },
+    { quantity: "Quantity" },
+    { price: "Price" }
+  ]
+) %>
+```
+
+**Actions column**
+
+Pass a block to add a trailing "Actions" column. The block receives the component instance; call `actions` on it with a sub-block that receives each item.
+
+```erb
+<%= ui_data_table(
+  items: @products,
+  columns: [
+    { name: "Name", link: ->(item) { product_path(item) } },
+    { status: "Status" }
+  ]
+) do |table| %>
+  <% table.actions do |item| %>
+    <%= link_to "Edit", edit_product_path(item) %>
+    <%= link_to "Delete", product_path(item), data: { turbo_method: :delete } %>
+  <% end %>
+<% end %>
+```
+
+When an actions column is present, position-based styling classes shift automatically — the last data column receives middle styling and the actions column receives last styling.
 
 ## Theming
 

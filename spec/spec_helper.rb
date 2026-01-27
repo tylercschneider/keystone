@@ -3,6 +3,13 @@
 unless defined?(ViewComponent)
   module ViewComponent
     class Base
+      def content
+        @__content_block&.call(self)
+      end
+
+      def set_content_block(&block)
+        @__content_block = block
+      end
     end
   end
 end

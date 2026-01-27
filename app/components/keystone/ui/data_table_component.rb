@@ -18,6 +18,10 @@ module Keystone
         @actions_block = nil
       end
 
+      def before_render
+        content
+      end
+
       def actions(&block)
         @actions_block = block
       end

@@ -117,6 +117,17 @@ RSpec.describe Keystone::Ui::DataTableComponent do
       expect(component.actions?).to be true
     end
 
+    it "before_render evaluates the content block so actions are registered" do
+      component = described_class.new(items: hash_items, columns: columns)
+      component.set_content_block do |table|
+        table.actions { |item| "Edit #{item[:name]}" }
+      end
+
+      expect(component.actions?).to be false
+      component.before_render
+      expect(component.actions?).to be true
+    end
+
     it "appends an Actions header with LAST classes" do
       component = described_class.new(items: hash_items, columns: columns)
       component.actions { |item| "Edit" }

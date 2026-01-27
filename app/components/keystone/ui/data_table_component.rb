@@ -11,6 +11,8 @@ module Keystone
       ROW_CLASSES_MIDDLE = "px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:text-gray-400"
       ROW_CLASSES_LAST = "py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-6"
 
+      MOBILE_HIDDEN_CLASSES = "hidden sm:table-cell"
+
       def initialize(items:, columns:, empty_message: nil)
         @items = items
         @columns = columns.map { |col| normalize_column(col) }
@@ -44,10 +46,13 @@ module Keystone
       end
 
       def header_cells
-        cells = column_labels.map.with_index do |label, index|
+        cells = @columns.map.with_index do |column, index|
+          classes = header_classes_for(index)
+          classes = "#{classes} #{MOBILE_HIDDEN_CLASSES}" if column.mobile_hidden?
+
           {
-            label: label,
-            classes: header_classes_for(index),
+            label: column.header_text,
+            classes: classes,
             scope: "col"
           }
         end
@@ -65,13 +70,16 @@ module Keystone
 
       def row_cells
         @row_cells ||= @items.map do |item|
-          column_keys.map.with_index do |key, index|
+          @columns.map.with_index do |column, index|
+            classes = row_classes_for(index)
+            classes = "#{classes} #{MOBILE_HIDDEN_CLASSES}" if column.mobile_hidden?
+
             cell = {
-              value: resolve_value(item, key),
-              classes: row_classes_for(index)
+              value: resolve_value(item, column.key),
+              classes: classes
             }
 
-            link_block = @link_blocks[key]
+            link_block = @link_blocks[column.key]
             cell[:href] = link_block.call(item) if link_block
 
             cell

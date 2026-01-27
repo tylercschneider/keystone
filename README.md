@@ -94,11 +94,26 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 **Required props**
 
 - `items:` (Array) — collection of AR objects, Structs, or hashes
-- `columns:` (Array of single-key Hashes) — each hash maps a lookup key to a header label, e.g. `{ name: "Name" }`
+- `columns:` (Array of Hashes or `Column` objects) — each hash maps a lookup key to a header label, e.g. `{ name: "Name" }`. Use `Keystone::Ui::Column` for per-column options.
 
 **Optional props**
 
 - `empty_message:` (String) — message displayed when `items` is empty
+
+**Mobile-hidden columns**
+
+Use `Keystone::Ui::Column` objects to hide columns on mobile. Columns with `mobile_hidden: true` receive `hidden sm:table-cell` classes, hiding them on small screens and showing them from the `sm` breakpoint up. Columns are visible on mobile by default.
+
+```erb
+<%= ui_data_table(
+  items: @products,
+  columns: [
+    Keystone::Ui::Column.new(:name, "Name"),
+    Keystone::Ui::Column.new(:quantity, "Quantity", mobile_hidden: true),
+    Keystone::Ui::Column.new(:price, "Price")
+  ]
+) %>
+```
 
 **Linkable cells**
 

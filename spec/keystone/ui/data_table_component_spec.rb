@@ -268,6 +268,45 @@ RSpec.describe Keystone::Ui::DataTableComponent do
       ])
     end
 
+    it "appends mobile-hidden classes to header and row cells" do
+      cols = [
+        Keystone::Ui::Column.new(:name, "Name"),
+        Keystone::Ui::Column.new(:quantity, "Quantity", mobile_hidden: true),
+        Keystone::Ui::Column.new(:price, "Price")
+      ]
+      component = described_class.new(items: [hash_items.first], columns: cols)
+
+      headers = component.header_cells
+      expect(headers[0][:classes]).to eq(described_class::HEADER_CLASSES_FIRST)
+      expect(headers[1][:classes]).to eq("#{described_class::HEADER_CLASSES_MIDDLE} #{described_class::MOBILE_HIDDEN_CLASSES}")
+      expect(headers[2][:classes]).to eq(described_class::HEADER_CLASSES_LAST)
+
+      row = component.row_cells.first
+      expect(row[0][:classes]).to eq(described_class::ROW_CLASSES_FIRST)
+      expect(row[1][:classes]).to eq("#{described_class::ROW_CLASSES_MIDDLE} #{described_class::MOBILE_HIDDEN_CLASSES}")
+      expect(row[2][:classes]).to eq(described_class::ROW_CLASSES_LAST)
+    end
+
+    it "does not append mobile-hidden classes when mobile_hidden is false" do
+      cols = [
+        Keystone::Ui::Column.new(:name, "Name"),
+        Keystone::Ui::Column.new(:price, "Price")
+      ]
+      component = described_class.new(items: [hash_items.first], columns: cols)
+
+      headers = component.header_cells
+      expect(headers[0][:classes]).not_to include(described_class::MOBILE_HIDDEN_CLASSES)
+      expect(headers[1][:classes]).not_to include(described_class::MOBILE_HIDDEN_CLASSES)
+    end
+
+    it "hash-based columns default to mobile-visible" do
+      component = described_class.new(items: [hash_items.first], columns: columns)
+
+      component.header_cells.each do |cell|
+        expect(cell[:classes]).not_to include(described_class::MOBILE_HIDDEN_CLASSES)
+      end
+    end
+
     it "supports mixed Column objects and hashes" do
       mixed = [
         Keystone::Ui::Column.new(:name, "Name"),

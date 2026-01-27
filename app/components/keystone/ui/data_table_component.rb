@@ -13,7 +13,7 @@ module Keystone
 
       def initialize(items:, columns:, empty_message: nil)
         @items = items
-        @columns = columns
+        @columns = columns.map { |col| normalize_column(col) }
         @empty_message = empty_message
         @actions_block = nil
         @link_blocks = {}
@@ -36,11 +36,11 @@ module Keystone
       end
 
       def column_keys
-        @column_keys ||= @columns.map { |col| col.keys.first }
+        @column_keys ||= @columns.map(&:key)
       end
 
       def column_labels
-        @column_labels ||= @columns.map { |col| col.values.first }
+        @column_labels ||= @columns.map(&:header_text)
       end
 
       def header_cells
@@ -91,6 +91,15 @@ module Keystone
 
       def visual_column_count
         @columns.length + (actions? ? 1 : 0)
+      end
+
+      def normalize_column(col)
+        case col
+        when Column then col
+        when Hash
+          key, label = col.first
+          Column.new(key, label)
+        end
       end
 
       def resolve_value(item, key)

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require_relative "../../../app/components/keystone/ui/column"
 require_relative "../../../app/components/keystone/ui/data_table_component"
 
 RSpec.describe Keystone::Ui::DataTableComponent do
@@ -230,6 +231,53 @@ RSpec.describe Keystone::Ui::DataTableComponent do
       component.link(:name) { |item| "/projects/#{item[:name].downcase}" }
       component.actions { |item| "Edit" }
       expect(component.column_count).to eq(4)
+    end
+  end
+
+  describe "Column object input" do
+    let(:column_objects) do
+      [
+        Keystone::Ui::Column.new(:name, "Name"),
+        Keystone::Ui::Column.new(:quantity, "Quantity"),
+        Keystone::Ui::Column.new(:price, "Price")
+      ]
+    end
+
+    it "accepts Column objects for columns" do
+      component = described_class.new(items: hash_items, columns: column_objects)
+
+      expect(component.column_keys).to eq([:name, :quantity, :price])
+      expect(component.column_labels).to eq(["Name", "Quantity", "Price"])
+    end
+
+    it "generates correct header and row cells from Column objects" do
+      component = described_class.new(items: [hash_items.first], columns: column_objects)
+
+      expect(component.header_cells).to eq([
+        { label: "Name", classes: described_class::HEADER_CLASSES_FIRST, scope: "col" },
+        { label: "Quantity", classes: described_class::HEADER_CLASSES_MIDDLE, scope: "col" },
+        { label: "Price", classes: described_class::HEADER_CLASSES_LAST, scope: "col" }
+      ])
+
+      expect(component.row_cells).to eq([
+        [
+          { value: "Apples", classes: described_class::ROW_CLASSES_FIRST },
+          { value: 10, classes: described_class::ROW_CLASSES_MIDDLE },
+          { value: "$1.50", classes: described_class::ROW_CLASSES_LAST }
+        ]
+      ])
+    end
+
+    it "supports mixed Column objects and hashes" do
+      mixed = [
+        Keystone::Ui::Column.new(:name, "Name"),
+        { quantity: "Quantity" },
+        Keystone::Ui::Column.new(:price, "Price")
+      ]
+      component = described_class.new(items: [hash_items.first], columns: mixed)
+
+      expect(component.column_keys).to eq([:name, :quantity, :price])
+      expect(component.column_labels).to eq(["Name", "Quantity", "Price"])
     end
   end
 end

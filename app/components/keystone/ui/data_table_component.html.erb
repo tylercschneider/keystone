@@ -23,10 +23,21 @@
                   </tr>
                 <% end %>
               <% else %>
-                <% row_cells.each do |row| %>
+                <% @items.each_with_index do |item, idx| %>
                   <tr>
-                    <% row.each do |cell| %>
-                      <td class="<%= cell[:classes] %>"><%= cell[:value] %></td>
+                    <% row_cells[idx].each do |cell| %>
+                      <td class="<%= cell[:classes] %>">
+                        <% if cell[:href] %>
+                          <a href="<%= cell[:href] %>"><%= cell[:value] %></a>
+                        <% else %>
+                          <%= cell[:value] %>
+                        <% end %>
+                      </td>
+                    <% end %>
+                    <% if actions? %>
+                      <td class="<%= Keystone::Ui::DataTableComponent::ROW_CLASSES_LAST %>">
+                        <%= capture(item, &@actions_block) %>
+                      </td>
                     <% end %>
                   </tr>
                 <% end %>

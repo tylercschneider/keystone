@@ -15,33 +15,61 @@ module Keystone
         @items = items
         @columns = columns
         @empty_message = empty_message
+        @actions_block = nil
+      end
+
+      def actions(&block)
+        @actions_block = block
+      end
+
+      def actions?
+        !!@actions_block
       end
 
       def column_keys
-        @column_keys ||= @columns.map { |col| col.keys.first }
+        @column_keys ||= @columns.map { |col| col.keys.reject { |k| k == :link }.first }
       end
 
       def column_labels
         @column_labels ||= @columns.map { |col| col.values.first }
       end
 
+      def column_links
+        @column_links ||= @columns.map { |col| col[:link] }
+      end
+
       def header_cells
-        @header_cells ||= column_labels.map.with_index do |label, index|
+        cells = column_labels.map.with_index do |label, index|
           {
             label: label,
             classes: header_classes_for(index),
             scope: "col"
           }
         end
+
+        if actions?
+          cells << {
+            label: "Actions",
+            classes: HEADER_CLASSES_LAST,
+            scope: "col"
+          }
+        end
+
+        cells
       end
 
       def row_cells
         @row_cells ||= @items.map do |item|
           column_keys.map.with_index do |key, index|
-            {
+            cell = {
               value: resolve_value(item, key),
               classes: row_classes_for(index)
             }
+
+            link_proc = column_links[index]
+            cell[:href] = link_proc.call(item) if link_proc
+
+            cell
           end
         end
       end
@@ -51,10 +79,14 @@ module Keystone
       end
 
       def column_count
-        @columns.length
+        visual_column_count
       end
 
       private
+
+      def visual_column_count
+        @columns.length + (actions? ? 1 : 0)
+      end
 
       def resolve_value(item, key)
         if item.respond_to?(key)
@@ -65,15 +97,19 @@ module Keystone
       end
 
       def header_classes_for(index)
+        last_data_index = @columns.length - 1
+
         return HEADER_CLASSES_FIRST if index.zero?
-        return HEADER_CLASSES_LAST if index == @columns.length - 1
+        return HEADER_CLASSES_LAST if index == last_data_index && !actions?
 
         HEADER_CLASSES_MIDDLE
       end
 
       def row_classes_for(index)
+        last_data_index = @columns.length - 1
+
         return ROW_CLASSES_FIRST if index.zero?
-        return ROW_CLASSES_LAST if index == @columns.length - 1
+        return ROW_CLASSES_LAST if index == last_data_index && !actions?
 
         ROW_CLASSES_MIDDLE
       end

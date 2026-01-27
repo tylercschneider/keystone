@@ -9,7 +9,7 @@ module KeystoneUiHelper
     render Keystone::Ui::ButtonComponent.new(**args)
   end
 
-  def ui_data_table(**args)
-    render Keystone::Ui::DataTableComponent.new(**args)
+  def ui_data_table(**args, &block)
+    render Keystone::Ui::DataTableComponent.new(**args), &block
   end
 end

@@ -42,5 +42,5 @@ Tests use RSpec. The spec helper stubs `ViewComponent::Base` so tests run withou
 
 - Ruby >= 3.0.0 required.
 - Components live under the `Keystone::Ui` namespace.
-- The TableComponent uses Tailwind CSS utility classes with predefined position-based class constants (first/middle/last cell styling).
+- The DataTableComponent uses Tailwind CSS utility classes with predefined position-based class constants (first/middle/last cell styling). It accepts `items` (AR objects or hashes) and `columns` (lookup-key/label pairs), resolving cell values automatically.
 - ButtonComponent conditionally renders `<a>` or `<button>` based on whether `href` is provided.

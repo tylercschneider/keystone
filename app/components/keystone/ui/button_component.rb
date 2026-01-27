@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Keystone
-  module UI
+  module Ui
     class ButtonComponent < ViewComponent::Base
       VARIANT_CLASSES = {
         primary: "ui-button--primary",

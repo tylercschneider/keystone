@@ -2,14 +2,14 @@
 
 module KeystoneUiHelper
   def ui_card(**args)
-    render Keystone::UI::CardComponent.new(**args)
+    render Keystone::Ui::CardComponent.new(**args)
   end
 
   def ui_button(**args)
-    render Keystone::UI::ButtonComponent.new(**args)
+    render Keystone::Ui::ButtonComponent.new(**args)
   end
 
   def ui_data_table(**args)
-    render Keystone::UI::DataTableComponent.new(**args)
+    render Keystone::Ui::DataTableComponent.new(**args)
   end
 end

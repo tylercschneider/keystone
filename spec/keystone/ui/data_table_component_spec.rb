@@ -3,7 +3,7 @@
 require "spec_helper"
 require_relative "../../../app/components/keystone/ui/data_table_component"
 
-RSpec.describe Keystone::UI::DataTableComponent do
+RSpec.describe Keystone::Ui::DataTableComponent do
   let(:columns) { [{ name: "Name" }, { quantity: "Quantity" }, { price: "Price" }] }
   let(:hash_items) do
     [

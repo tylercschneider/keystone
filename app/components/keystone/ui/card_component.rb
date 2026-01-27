@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Keystone
-  module UI
+  module Ui
     class CardComponent < ViewComponent::Base
       def initialize(title:, summary:, link:, cta: "Read more")
         @title = title

@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Keystone::UI::ButtonComponent do
+RSpec.describe Keystone::Ui::ButtonComponent do
   it "combines base, variant, and size classes" do
     component = described_class.new(label: "Create invoice", variant: :secondary, size: :lg)
 

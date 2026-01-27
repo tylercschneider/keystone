@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Keystone
-  module UI
+  module Ui
     class DataTableComponent < ViewComponent::Base
       HEADER_CLASSES_FIRST = "py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-6 dark:text-gray-200"
       HEADER_CLASSES_MIDDLE = "px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-200"

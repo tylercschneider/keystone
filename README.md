@@ -42,6 +42,16 @@ Use the helpers in ERB. Consuming apps should not instantiate components directl
   href: new_invoice_path,
   variant: :primary
 ) %>
+
+<%= ui_data_table(
+  items: @products,
+  columns: [
+    { name: "Name" },
+    { quantity: "Quantity" },
+    { price: "Price" }
+  ],
+  empty_message: "No products found."
+) %>
 ```
 
 ## Available Components
@@ -74,6 +84,19 @@ Otherwise, a `<button>` tag is rendered with `type="button"`.
 - `href:` (String or URL)
 - `variant:` (`:primary | :secondary | :danger`, default `:primary`)
 - `size:` (`:sm | :md | :lg`, default `:md`)
+
+### `ui_data_table`
+
+Renders a responsive data table. Accepts a collection of items (ActiveRecord objects, Structs, or hashes) and column definitions that map lookup keys to header labels.
+
+**Required props**
+
+- `items:` (Array) — collection of AR objects, Structs, or hashes
+- `columns:` (Array of single-key Hashes) — each hash maps a lookup key to a header label, e.g. `{ name: "Name" }`
+
+**Optional props**
+
+- `empty_message:` (String) — message displayed when `items` is empty
 
 ## Theming
 

@@ -8,3 +8,4 @@ unless defined?(ViewComponent)
 end
 
 require_relative "../app/components/keystone/ui/button_component"
+require_relative "../app/components/keystone/ui/data_table_component"

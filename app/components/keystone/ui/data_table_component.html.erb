@@ -8,18 +8,14 @@
               <tr>
                 <% header_cells.each do |cell| %>
                   <th scope="<%= cell[:scope] %>" class="<%= cell[:classes] %>">
-                    <% if cell[:sr_only] %>
-                      <span class="sr-only"><%= cell[:label] %></span>
-                    <% else %>
-                      <%= cell[:label] %>
-                    <% end %>
+                    <%= cell[:label] %>
                   </th>
                 <% end %>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white dark:divide-white/10 dark:bg-gray-800/50">
               <% if empty? %>
-                <% if @empty_message.present? %>
+                <% if @empty_message %>
                   <tr>
                     <td class="px-3 py-4 text-sm text-gray-500 dark:text-gray-400" colspan="<%= column_count %>">
                       <%= @empty_message %>
@@ -30,7 +26,7 @@
                 <% row_cells.each do |row| %>
                   <tr>
                     <% row.each do |cell| %>
-                      <%= content_tag(cell[:tag], cell[:content], class: cell[:classes]) %>
+                      <td class="<%= cell[:classes] %>"><%= cell[:value] %></td>
                     <% end %>
                   </tr>
                 <% end %>

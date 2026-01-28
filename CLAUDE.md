@@ -12,6 +12,7 @@ Keystone Components is a Rails gem providing reusable UI components built on `vi
 bundle install              # Install dependencies
 bundle exec rspec           # Run all tests
 bundle exec rspec spec/keystone/ui/button_component_spec.rb  # Run a single test file
+rake keystone:claude        # Append API reference to consuming app's CLAUDE.md
 ```
 
 No build step or linter is configured.

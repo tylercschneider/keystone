@@ -12,4 +12,20 @@ module KeystoneUiHelper
   def ui_data_table(**args, &block)
     render Keystone::Ui::DataTableComponent.new(**args), &block
   end
+
+  def ui_page(**args, &block)
+    render Keystone::Ui::PageComponent.new(**args), &block
+  end
+
+  def ui_section(**args, &block)
+    render Keystone::Ui::SectionComponent.new(**args), &block
+  end
+
+  def ui_grid(**args, &block)
+    render Keystone::Ui::GridComponent.new(**args), &block
+  end
+
+  def ui_panel(**args, &block)
+    render Keystone::Ui::PanelComponent.new(**args), &block
+  end
 end

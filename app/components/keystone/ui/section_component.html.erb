@@ -1,0 +1,18 @@
+<div class="<%= spacing_class %>">
+  <% if header? %>
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white"><%= @title %></h2>
+        <% if @subtitle %>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400"><%= @subtitle %></p>
+        <% end %>
+      </div>
+      <% if @action %>
+        <a href="<%= @action[:href] %>" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
+          <%= @action[:label] %>
+        </a>
+      <% end %>
+    </div>
+  <% end %>
+  <%= content %>
+</div>

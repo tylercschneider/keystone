@@ -16,3 +16,7 @@ end
 
 require_relative "../app/components/keystone/ui/button_component"
 require_relative "../app/components/keystone/ui/data_table_component"
+require_relative "../app/components/keystone/ui/page_component"
+require_relative "../app/components/keystone/ui/section_component"
+require_relative "../app/components/keystone/ui/grid_component"
+require_relative "../app/components/keystone/ui/panel_component"

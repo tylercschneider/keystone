@@ -9,6 +9,9 @@
   --color-secondary-foreground: #ffffff;
   --color-danger: #dc2626;
   --color-danger-foreground: #ffffff;
+  --color-bg-page: #ffffff;
+  --color-bg-panel: #ffffff;
+  --color-border-panel: #d7dde2;
 }
 
 .bg-card {
@@ -21,6 +24,14 @@
 
 .border-card {
   border-color: var(--color-border-card);
+}
+
+.bg-panel {
+  background-color: var(--color-bg-panel);
+}
+
+.border-panel {
+  border-color: var(--color-border-panel);
 }
 
 .text-primary {

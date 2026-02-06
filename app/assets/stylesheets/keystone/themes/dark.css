@@ -9,4 +9,6 @@
   --color-secondary-foreground: #0f172a;
   --color-danger: #f87171;
   --color-danger-foreground: #0f172a;
+  --color-bg-panel: #18181b;
+  --color-border-panel: #3f3f46;
 }

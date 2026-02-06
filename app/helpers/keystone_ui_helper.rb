@@ -28,4 +28,8 @@ module KeystoneUiHelper
   def ui_panel(**args, &block)
     render Keystone::Ui::PanelComponent.new(**args), &block
   end
+
+  def ui_card_link(**args, &block)
+    render Keystone::Ui::CardLinkComponent.new(**args), &block
+  end
 end

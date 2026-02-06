@@ -3,13 +3,13 @@
 module Keystone
   module Ui
     class DataTableComponent < ViewComponent::Base
-      HEADER_CLASSES_FIRST = "py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-6 dark:text-gray-200"
+      HEADER_CLASSES_FIRST = "py-3.5 pr-3 pl-6 text-left text-sm font-semibold text-gray-900 dark:text-gray-200"
       HEADER_CLASSES_MIDDLE = "px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-200"
-      HEADER_CLASSES_LAST = "py-3.5 pr-4 pl-3 sm:pr-6"
+      HEADER_CLASSES_LAST = "py-3.5 pr-6 pl-3"
 
-      ROW_CLASSES_FIRST = "py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6 dark:text-white"
+      ROW_CLASSES_FIRST = "py-4 pr-3 pl-6 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-white"
       ROW_CLASSES_MIDDLE = "px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:text-gray-400"
-      ROW_CLASSES_LAST = "py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-6"
+      ROW_CLASSES_LAST = "py-4 pr-6 pl-3 text-right text-sm font-medium whitespace-nowrap"
 
       MOBILE_HIDDEN_CLASSES = "hidden sm:table-cell"
 

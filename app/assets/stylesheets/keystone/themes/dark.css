@@ -1,14 +1,1 @@
-:root {
-  color-scheme: dark;
-  --color-bg-card: #111827;
-  --color-fg-card: #f9fafb;
-  --color-border-card: #374151;
-  --color-primary: #60a5fa;
-  --color-primary-foreground: #0f172a;
-  --color-secondary: #94a3b8;
-  --color-secondary-foreground: #0f172a;
-  --color-danger: #f87171;
-  --color-danger-foreground: #0f172a;
-  --color-bg-panel: #18181b;
-  --color-border-panel: #3f3f46;
-}
+/* All component styles are now Tailwind classes with dark: variants applied directly in components. */

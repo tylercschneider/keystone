@@ -19,4 +19,13 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "view_component", ">= 2.0"
+
+  spec.post_install_message = <<~MSG
+    Keystone Components installed!
+
+    Prerequisites: tailwindcss-rails v4+
+
+    Run the install generator for setup instructions:
+      rails generate keystone:install
+  MSG
 end

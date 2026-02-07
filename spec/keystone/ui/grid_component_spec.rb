@@ -55,4 +55,20 @@ RSpec.describe Keystone::Ui::GridComponent do
     expect(component.classes).to include("gap-y-8")
     expect(component.classes).not_to include("gap-3")
   end
+
+  it "defines COL_CLASSES with static class strings for each breakpoint" do
+    col_classes = described_class::COL_CLASSES
+
+    expect(col_classes[:default][1]).to eq("grid-cols-1")
+    expect(col_classes[:default][12]).to eq("grid-cols-12")
+    expect(col_classes[:sm][2]).to eq("sm:grid-cols-2")
+    expect(col_classes[:md][6]).to eq("md:grid-cols-6")
+    expect(col_classes[:lg][4]).to eq("lg:grid-cols-4")
+  end
+
+  it "raises KeyError for unsupported column counts" do
+    expect {
+      described_class.new(cols: { default: 99 }).classes
+    }.to raise_error(KeyError)
+  end
 end

@@ -25,12 +25,8 @@ module Keystone
         if content.include?(IMPORT_LINE)
           say "  ✔ Import already present in application.css", :green
         else
-          if yes?("  → Inject the import into application.css now? [y/N]")
-            inject_into_file css_path, "#{IMPORT_LINE}\n", after: /@import\s+"tailwindcss";\n/
-            say "  ✔ Import added!", :green
-          else
-            say "  → Skipped. Add it manually when ready."
-          end
+          inject_into_file css_path, "#{IMPORT_LINE}\n", after: /@import\s+"tailwindcss";\n/
+          say "  ✔ Import added to application.css", :green
         end
       else
         say "  ⚠ application.css not found at expected path.", :yellow

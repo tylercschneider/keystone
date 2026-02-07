@@ -9,22 +9,42 @@ prevent UI drift, and enable safe mass updates.
 - All UI lives in ViewComponents (no partials).
 - Components are Ruby objects with explicit keyword arguments.
 - Helpers are thin render wrappers with no logic or conditionals.
-- Styling is semantic and token-driven via CSS variables.
-- Themes are CSS-only and switch by swapping variable definitions.
+- Styling uses Tailwind CSS utility classes applied directly in components.
 
 ## Installation
 
-Add the gem to your application:
+### Prerequisites
+
+- Rails 7+
+- **tailwindcss-rails v4+** — components use Tailwind CSS utility classes and ship a
+  `@source` directive that tells Tailwind where to scan for classes.
+
+### Steps
+
+1. Add the gem to your Gemfile:
 
 ```ruby
 gem "keystone_components"
 ```
 
-Include one of the theme stylesheets (base or dark) in your asset pipeline:
+2. Run `bundle install`.
 
-```scss
-@import "keystone/themes/base";
+3. Run the install generator for guided setup:
+
+```bash
+rails generate keystone:install
 ```
+
+The generator checks for `tailwindcss-rails`, and optionally injects the
+required `@import` into your `app/assets/tailwind/application.css`:
+
+```css
+@import "keystone_components_engine";
+```
+
+If you prefer manual setup, add that import line yourself. It pulls in the
+engine's CSS which tells Tailwind to scan Keystone's component files for
+utility classes.
 
 ## Helper API (primary surface)
 
@@ -154,12 +174,3 @@ Pass a block to add a trailing "Actions" column. The block receives the componen
 
 When an actions column is present, position-based styling classes shift automatically — the last data column receives middle styling and the actions column receives last styling.
 
-## Theming
-
-Components reference semantic classes (e.g., `bg-card`, `text-primary`) and rely on CSS
-variables for actual colors. Themes override variables only; component markup never changes.
-
-Included themes:
-
-- `keystone/themes/base.css` — light theme with neutral defaults.
-- `keystone/themes/dark.css` — dark theme overrides variables only.

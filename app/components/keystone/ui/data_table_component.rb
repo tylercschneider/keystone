@@ -47,12 +47,12 @@ module Keystone
 
       def header_cells
         cells = @columns.map.with_index do |column, index|
-          classes = header_classes_for(index)
-          classes = "#{classes} #{MOBILE_HIDDEN_CLASSES}" if column.mobile_hidden?
+          tokens = [header_classes_for(index)]
+          tokens << MOBILE_HIDDEN_CLASSES if column.mobile_hidden?
 
           {
             label: column.header_text,
-            classes: classes,
+            classes: tokens.join(" "),
             scope: "col"
           }
         end
@@ -71,12 +71,12 @@ module Keystone
       def row_cells
         @row_cells ||= @items.map do |item|
           @columns.map.with_index do |column, index|
-            classes = row_classes_for(index)
-            classes = "#{classes} #{MOBILE_HIDDEN_CLASSES}" if column.mobile_hidden?
+            tokens = [row_classes_for(index)]
+            tokens << MOBILE_HIDDEN_CLASSES if column.mobile_hidden?
 
             cell = {
               value: resolve_value(item, column.key),
-              classes: classes
+              classes: tokens.join(" ")
             }
 
             link_block = @link_blocks[column.key]

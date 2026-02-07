@@ -46,6 +46,8 @@ GEM
       prism (~> 1.5)
     nokogiri (1.19.0-x86_64-darwin)
       racc (~> 1.4)
+    nokogiri (1.19.0-x86_64-linux-gnu)
+      racc (~> 1.4)
     prism (1.8.0)
     racc (1.8.1)
     rails-dom-testing (2.3.0)
@@ -80,6 +82,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin
+  x86_64-linux
 
 DEPENDENCIES
   keystone_components!

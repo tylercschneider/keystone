@@ -325,3 +325,44 @@ Renders a multi-line `<textarea>` element with consistent styling.
 ```erb
 <%= ui_textarea(name: "notes", rows: 5, placeholder: "Add notes...") %>
 ```
+
+### `ui_page_header`
+
+Renders a page title area with an optional subtitle and action slot. On small screens the title stacks above actions; on wider screens they sit side-by-side.
+
+**Required props**
+
+- `title:` (String) — the page heading
+
+**Optional props**
+
+- `subtitle:` (String) — secondary text below the title
+
+**Block API** — register an action slot via `header.action`:
+
+```erb
+<%= ui_page_header(title: "Products", subtitle: "Manage your catalog") do |header| %>
+  <% header.action do %>
+    <%= ui_button(label: "New Product", href: new_product_path) %>
+  <% end %>
+<% end %>
+```
+
+### `ui_alert`
+
+Renders a styled alert/flash message with type variants, optional title, and dismissible button.
+
+**Required props**
+
+- `message:` (String) — the alert message
+
+**Optional props**
+
+- `type:` (`:info | :success | :warning | :error`, default `:info`) — determines background/text color
+- `title:` (String) — bold title above the message
+- `dismissible:` (Boolean, default `false`) — shows a dismiss button when `true`
+
+```erb
+<%= ui_alert(message: "Changes saved successfully.", type: :success) %>
+<%= ui_alert(message: "Could not save record.", type: :error, title: "Error", dismissible: true) %>
+```

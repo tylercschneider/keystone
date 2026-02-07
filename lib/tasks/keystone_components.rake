@@ -146,6 +146,37 @@ namespace :keystone do
       | `href:` | yes | — | — |
       | `padding:` | no | `:md` | `:sm`, `:md`, `:lg` |
       | `shadow:` | no | `true` | `true`, `false` |
+
+      ### `ui_page_header`
+
+      ```erb
+      <%= ui_page_header(title: "Products", subtitle: "Manage your catalog") do |header| %>
+        <% header.action do %>
+          <%= ui_button(label: "New Product", href: new_product_path) %>
+        <% end %>
+      <% end %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `title:` | yes | — |
+      | `subtitle:` | no | `nil` |
+
+      Block API: call `header.action { ... }` to add an action slot (e.g. a button) aligned to the right.
+
+      ### `ui_alert`
+
+      ```erb
+      <%= ui_alert(message: "Changes saved.", type: :success) %>
+      <%= ui_alert(message: "Could not save.", type: :error, title: "Error", dismissible: true) %>
+      ```
+
+      | Param | Required | Default | Values |
+      |-------|----------|---------|--------|
+      | `message:` | yes | — | — |
+      | `type:` | no | `:info` | `:info`, `:success`, `:warning`, `:error` |
+      | `title:` | no | `nil` | bold title above message |
+      | `dismissible:` | no | `false` | shows dismiss button when `true` |
     MARKDOWN
 
     content.chomp!

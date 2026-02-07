@@ -20,3 +20,6 @@ jobs:
 
       - name: Ruby syntax check
         run: find app lib -name "*.rb" -exec ruby -c {} +
+
+      - name: Run tests
+        run: bundle exec rspec

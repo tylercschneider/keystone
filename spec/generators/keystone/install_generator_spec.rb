@@ -28,4 +28,8 @@ RSpec.describe Keystone::InstallGenerator do
   it "has a setup_instructions method" do
     expect(described_class.instance_methods).to include(:setup_instructions)
   end
+
+  it "uses the correct tailwindcss-rails engine import path" do
+    expect(described_class::IMPORT_LINE).to eq('@import "../builds/tailwind/keystone_components_engine";')
+  end
 end

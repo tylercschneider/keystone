@@ -4,7 +4,7 @@ module Keystone
   class InstallGenerator < Rails::Generators::Base
     desc "Set up Keystone Components in your Rails application"
 
-    IMPORT_LINE = '@import "keystone_components_engine";'
+    IMPORT_LINE = '@import "../builds/tailwind/keystone_components_engine";'
 
     def setup_instructions
       say ""

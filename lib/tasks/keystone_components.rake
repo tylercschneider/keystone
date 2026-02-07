@@ -23,6 +23,7 @@ namespace :keystone do
       | `summary:` | yes | — |
       | `link:` | yes | — |
       | `cta:` | no | `"Read more"` |
+      | `edge_to_edge:` | no | `false` | removes side borders/radius on mobile when `true` |
 
       ### `ui_button`
 

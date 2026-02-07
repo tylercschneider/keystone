@@ -1,0 +1,13 @@
+<div class="<%= WRAPPER_CLASSES %>">
+  <div>
+    <h1 class="<%= TITLE_CLASSES %>"><%= @title %></h1>
+    <% if subtitle? %>
+      <p class="<%= SUBTITLE_CLASSES %>"><%= subtitle_text %></p>
+    <% end %>
+  </div>
+  <% if action? %>
+    <div class="<%= ACTIONS_CLASSES %>">
+      <%= @action_block.call %>
+    </div>
+  <% end %>
+</div>

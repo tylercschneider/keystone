@@ -44,4 +44,12 @@ module KeystoneUiHelper
   def ui_form_field(**args)
     render Keystone::Ui::FormFieldComponent.new(**args)
   end
+
+  def ui_page_header(**args, &block)
+    render Keystone::Ui::PageHeaderComponent.new(**args), &block
+  end
+
+  def ui_alert(**args)
+    render Keystone::Ui::AlertComponent.new(**args)
+  end
 end

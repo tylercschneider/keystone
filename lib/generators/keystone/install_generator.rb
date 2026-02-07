@@ -40,5 +40,11 @@ module Keystone
       say ""
       say "Done! See the README for component usage.", :green
     end
+
+    def generate_claude_docs
+      say ""
+      say "Generating CLAUDE.md API reference...", :green
+      rake "keystone:claude"
+    end
   end
 end

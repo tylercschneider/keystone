@@ -32,4 +32,8 @@ RSpec.describe Keystone::InstallGenerator do
   it "uses the correct tailwindcss-rails engine import path" do
     expect(described_class::IMPORT_LINE).to eq('@import "../builds/tailwind/keystone_components_engine";')
   end
+
+  it "has a generate_claude_docs method" do
+    expect(described_class.instance_methods).to include(:generate_claude_docs)
+  end
 end

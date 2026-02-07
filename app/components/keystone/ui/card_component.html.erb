@@ -1,9 +1,9 @@
-<div class="ui-card bg-card text-card border-card">
-  <div class="ui-card__body">
-    <h3 class="ui-card__title text-card"><%= @title %></h3>
-    <p class="ui-card__summary text-card"><%= @summary %></p>
+<div class="<%= card_classes %>">
+  <div class="<%= BODY_CLASSES %>">
+    <h3 class="<%= TITLE_CLASSES %>"><%= @title %></h3>
+    <p class="<%= SUMMARY_CLASSES %>"><%= @summary %></p>
   </div>
-  <div class="ui-card__cta">
-    <%= link_to @cta, @link, class: "ui-card__link text-primary" %>
+  <div class="<%= CTA_CLASSES %>">
+    <%= link_to @cta, @link, class: LINK_CLASSES %>
   </div>
 </div>

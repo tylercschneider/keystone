@@ -36,4 +36,8 @@ module KeystoneUiHelper
   def ui_input(**args)
     render Keystone::Ui::InputComponent.new(**args)
   end
+
+  def ui_textarea(**args)
+    render Keystone::Ui::TextareaComponent.new(**args)
+  end
 end

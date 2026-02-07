@@ -7,6 +7,11 @@ This document outlines planned components for the Keystone UI framework.
 - **ui_card** - Card layout with title, summary, and CTA
 - **ui_button** - Button/link with variants and sizes
 - **ui_data_table** - Responsive data table with links and actions
+- **ui_page** - Page wrapper with max-width and padding
+- **ui_section** - Content grouping with optional header and spacing
+- **ui_grid** - CSS grid with responsive columns and gap sizes
+- **ui_panel** - Bordered container with padding, radius, and shadow
+- **ui_card_link** - Clickable card wrapping content in an `<a>` tag
 
 ---
 
@@ -322,50 +327,14 @@ Based on consuming application needs (wyn3 shopping list & inventory):
 
 ---
 
-## CSS Token Requirements
-
-New components will need these semantic tokens added to themes:
-
-```css
-/* Alerts */
---color-alert-info-bg: ...;
---color-alert-info-text: ...;
---color-alert-success-bg: ...;
---color-alert-success-text: ...;
---color-alert-warning-bg: ...;
---color-alert-warning-text: ...;
---color-alert-error-bg: ...;
---color-alert-error-text: ...;
-
-/* Badges */
---color-badge-neutral-bg: ...;
---color-badge-neutral-text: ...;
-/* ... variants for success, warning, danger, info */
-
-/* Progress */
---color-progress-track: ...;
---color-progress-fill: ...;
-
-/* Forms */
---color-input-bg: ...;
---color-input-border: ...;
---color-input-focus: ...;
---color-input-error: ...;
-
-/* Modal */
---color-overlay: rgba(0, 0, 0, 0.5);
-```
-
----
-
 ## Development Guidelines
 
 For each new component:
 
-1. **Write spec first** - Define expected behavior in RSpec
-2. **Build component class** - Ruby object with explicit kwargs
-3. **Create template** - Minimal ERB with semantic classes
+1. **Write spec first** - Define expected behavior in RSpec (TDD)
+2. **Build component class** - Ruby object with explicit kwargs, Tailwind utility classes via frozen constant hashes
+3. **Create template** - Minimal ERB referencing class constants
 4. **Add helper** - Thin wrapper in `keystone_ui_helper.rb`
-5. **Add theme tokens** - CSS variables in base.css and dark.css
-6. **Document in README** - Props and usage examples
+5. **Document in README** - Props and usage examples
+6. **Update rake task** - Add to `rake keystone:claude` output
 7. **Test in consuming app** - Verify in real usage context

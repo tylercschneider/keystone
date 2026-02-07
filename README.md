@@ -39,12 +39,12 @@ The generator checks for `tailwindcss-rails`, and optionally injects the
 required `@import` into your `app/assets/tailwind/application.css`:
 
 ```css
-@import "keystone_components_engine";
+@import "../builds/tailwind/keystone_components_engine";
 ```
 
-If you prefer manual setup, add that import line yourself. It pulls in the
-engine's CSS which tells Tailwind to scan Keystone's component files for
-utility classes.
+If you prefer manual setup, add that import line yourself. You may also need
+to run `rails tailwindcss:engines` to generate the build entry point (this
+happens automatically on `tailwindcss:build` and `tailwindcss:watch`).
 
 ## Helper API (primary surface)
 
@@ -175,3 +175,87 @@ Pass a block to add a trailing "Actions" column. The block receives the componen
 
 When an actions column is present, position-based styling classes shift automatically — the last data column receives middle styling and the actions column receives last styling.
 
+### `ui_page`
+
+Wraps page content with consistent max-width and horizontal padding.
+
+**Optional props**
+
+- `max_width:` (`:sm | :md | :lg | :xl | :full`, default `:full`) — constrains content width. Values map to `max-w-2xl`, `max-w-4xl`, `max-w-6xl`, `max-w-7xl`, or no constraint.
+- `padding:` (`:standard | :none`, default `:standard`) — adds responsive horizontal padding (`px-4 sm:px-6 lg:px-8`).
+
+```erb
+<%= ui_page(max_width: :lg) do %>
+  <!-- page content -->
+<% end %>
+```
+
+### `ui_section`
+
+Groups related content with an optional header (title, subtitle, action) and vertical spacing.
+
+**Optional props**
+
+- `title:` (String) — section heading
+- `subtitle:` (String) — secondary text below the title
+- `action:` — slot for a trailing action (e.g. a button)
+- `spacing:` (`:sm | :md | :lg`, default `:md`) — top margin between sections
+
+```erb
+<%= ui_section(title: "Products", subtitle: "All active items", spacing: :lg) do %>
+  <!-- section content -->
+<% end %>
+```
+
+### `ui_grid`
+
+Renders a CSS grid with responsive column counts and configurable gap sizes.
+
+**Optional props**
+
+- `cols:` (Hash, default `{ default: 1 }`) — maps breakpoints to column counts (1-12). Keys: `:default`, `:sm`, `:md`, `:lg`.
+- `gap:` (`:sm | :md | :lg | :xl`, default `:md`) — uniform gap size
+- `gap_x:` (Symbol) — horizontal gap (overrides `gap:`)
+- `gap_y:` (Symbol) — vertical gap (overrides `gap:`)
+
+```erb
+<%= ui_grid(cols: { default: 1, sm: 2, lg: 4 }, gap: :lg) do %>
+  <!-- grid items -->
+<% end %>
+```
+
+### `ui_panel`
+
+Renders a bordered, rounded container with padding and optional shadow.
+
+**Optional props**
+
+- `padding:` (`:sm | :md | :lg`, default `:md`)
+- `radius:` (`:md | :lg | :xl`, default `:lg`)
+- `shadow:` (Boolean, default `true`)
+
+```erb
+<%= ui_panel(padding: :lg) do %>
+  <!-- panel content -->
+<% end %>
+```
+
+### `ui_card_link`
+
+Renders a clickable card that wraps its content in an `<a>` tag with hover styling.
+
+**Required props**
+
+- `href:` (String or URL)
+
+**Optional props**
+
+- `padding:` (`:sm | :md | :lg`, default `:md`)
+- `shadow:` (Boolean, default `true`)
+
+```erb
+<%= ui_card_link(href: product_path(@product)) do %>
+  <h3>Product name</h3>
+  <p>Product description</p>
+<% end %>
+```

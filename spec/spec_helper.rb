@@ -14,6 +14,7 @@ unless defined?(ViewComponent)
   end
 end
 
+require_relative "../app/components/keystone/ui/card_component"
 require_relative "../app/components/keystone/ui/button_component"
 require_relative "../app/components/keystone/ui/data_table_component"
 require_relative "../app/components/keystone/ui/page_component"

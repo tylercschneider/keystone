@@ -40,4 +40,8 @@ module KeystoneUiHelper
   def ui_textarea(**args)
     render Keystone::Ui::TextareaComponent.new(**args)
   end
+
+  def ui_form_field(**args)
+    render Keystone::Ui::FormFieldComponent.new(**args)
+  end
 end

@@ -259,3 +259,69 @@ Renders a clickable card that wraps its content in an `<a>` tag with hover styli
   <p>Product description</p>
 <% end %>
 ```
+
+### `ui_form_field`
+
+Wraps a label, input, hint, and error message in a consistent layout. Infers label text from the attribute name when not explicitly provided.
+
+**Required props**
+
+- `attribute:` (Symbol) — the form attribute name
+
+**Optional props**
+
+- `label:` (String) — explicit label text (inferred from `attribute:` if omitted)
+- `type:` (`:text | :number | :email | :password | :textarea`, default `:text`)
+- `required:` (Boolean, default `false`) — shows a red asterisk after the label
+- `hint:` (String) — help text below the input
+- `placeholder:` (String)
+- `min:` / `max:` (for number inputs)
+
+```erb
+<%= ui_form_field(
+  attribute: :name,
+  label: "List Name",
+  required: true,
+  hint: "Enter a descriptive name"
+) %>
+```
+
+### `ui_input`
+
+Renders a standalone `<input>` element with consistent styling.
+
+**Required props**
+
+- `name:` (String)
+
+**Optional props**
+
+- `type:` (`:text | :number | :email | :password`, default `:text`)
+- `value:` (String/Number)
+- `placeholder:` (String)
+- `disabled:` (Boolean, default `false`)
+- `min:` / `max:` / `step:` (for number type)
+
+```erb
+<%= ui_input(name: "search", placeholder: "Search...") %>
+<%= ui_input(name: "quantity", type: :number, value: 1, min: 1) %>
+```
+
+### `ui_textarea`
+
+Renders a multi-line `<textarea>` element with consistent styling.
+
+**Required props**
+
+- `name:` (String)
+
+**Optional props**
+
+- `value:` (String)
+- `rows:` (Integer, default `3`)
+- `placeholder:` (String)
+- `disabled:` (Boolean, default `false`)
+
+```erb
+<%= ui_textarea(name: "notes", rows: 5, placeholder: "Add notes...") %>
+```

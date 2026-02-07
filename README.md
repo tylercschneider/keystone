@@ -91,6 +91,7 @@ Renders a card layout with a title, summary, and a single call-to-action link.
 **Optional props**
 
 - `cta:` (String, default `"Read more"`)
+- `edge_to_edge:` (Boolean, default `false`) — when `true`, removes horizontal border-radius and side borders on mobile, restoring them at the `sm` breakpoint. Useful for cards that span the full viewport width on small screens.
 
 ### `ui_button`
 

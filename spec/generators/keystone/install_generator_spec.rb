@@ -25,12 +25,16 @@ RSpec.describe Keystone::InstallGenerator do
     expect(described_class.superclass).to eq(Rails::Generators::Base)
   end
 
-  it "has a setup_instructions method" do
-    expect(described_class.instance_methods).to include(:setup_instructions)
+  it "has a setup_tailwind method" do
+    expect(described_class.instance_methods).to include(:setup_tailwind)
   end
 
   it "uses the correct tailwindcss-rails engine import path" do
     expect(described_class::IMPORT_LINE).to eq('@import "../builds/tailwind/keystone_components_engine";')
+  end
+
+  it "has a SOURCE_MARKER for idempotent safelist injection" do
+    expect(described_class::SOURCE_MARKER).to eq("/* keystone:safelist */")
   end
 
   it "has a generate_claude_docs method" do

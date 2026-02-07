@@ -1,0 +1,15 @@
+<div class="<%= WRAPPER_CLASSES %>">
+  <label class="<%= LABEL_CLASSES %>">
+    <%= label_text %><% if required? %><span class="<%= REQUIRED_CLASSES %>">*</span><% end %>
+  </label>
+
+  <% if textarea? %>
+    <textarea name="<%= @attribute %>" rows="3" class="<%= Keystone::Ui::TextareaComponent::BASE_CLASSES %>"<% if @placeholder %> placeholder="<%= @placeholder %>"<% end %>><%= @value %></textarea>
+  <% else %>
+    <input <%= input_options.map { |k, v| v == true ? k.to_s : %(#{k}="#{v}") }.join(" ") %> class="<%= Keystone::Ui::InputComponent::BASE_CLASSES %>">
+  <% end %>
+
+  <% if hint? %>
+    <p class="<%= HINT_CLASSES %>"><%= hint_text %></p>
+  <% end %>
+</div>

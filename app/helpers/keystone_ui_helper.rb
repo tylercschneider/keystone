@@ -32,4 +32,8 @@ module KeystoneUiHelper
   def ui_card_link(**args, &block)
     render Keystone::Ui::CardLinkComponent.new(**args), &block
   end
+
+  def ui_input(**args)
+    render Keystone::Ui::InputComponent.new(**args)
+  end
 end

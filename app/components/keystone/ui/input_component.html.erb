@@ -1,0 +1,1 @@
+<input <%= tag_options.map { |k, v| v == true ? k.to_s : %(#{k}="#{v}") }.join(" ") %>>

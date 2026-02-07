@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe "Tailwind safelist" do
   # All component classes that define Tailwind CSS class constants
-  COMPONENT_CLASSES = [
+  COMPONENTS = [
     Keystone::Ui::CardComponent,
     Keystone::Ui::ButtonComponent,
     Keystone::Ui::DataTableComponent,
@@ -20,8 +20,13 @@ RSpec.describe "Tailwind safelist" do
     Keystone::Ui::AlertComponent
   ].freeze
 
-  # Classes used in ERB templates but not in Ruby constants
-  ERB_ONLY_CLASSES = %w[
+  # Constants that hold non-CSS values (e.g. HTML type maps)
+  SKIP_CONSTANTS = %i[TYPE_MAP].freeze
+
+  # Classes used in Ruby methods or ERB templates, not in frozen constants
+  NON_CONSTANT_CLASSES = %w[
+    grid
+    mx-auto
     overflow-hidden rounded-lg border border-gray-200 shadow-sm
     dark:border-zinc-700 dark:shadow-none
     relative min-w-full divide-y divide-gray-300 dark:divide-white/15
@@ -30,15 +35,17 @@ RSpec.describe "Tailwind safelist" do
     px-3 py-4 text-sm text-gray-500 dark:text-gray-400
     flex items-center justify-between mb-4
     text-lg font-semibold text-gray-900 dark:text-white
-    mt-1 text-sm text-gray-500 dark:text-gray-400
-    text-sm text-indigo-600 hover:text-indigo-900
+    mt-1 text-indigo-600 hover:text-indigo-900
     dark:text-indigo-400 dark:hover:text-indigo-300
     flex-1
+    hover:border-indigo-500
   ].freeze
 
   def extract_classes_from_constants(klass)
     classes = []
     klass.constants(false).each do |const_name|
+      next if SKIP_CONSTANTS.include?(const_name)
+
       value = klass.const_get(const_name)
       case value
       when String
@@ -60,8 +67,8 @@ RSpec.describe "Tailwind safelist" do
   end
 
   def all_component_classes
-    classes = COMPONENT_CLASSES.flat_map { |klass| extract_classes_from_constants(klass) }
-    classes.concat(ERB_ONLY_CLASSES)
+    classes = COMPONENTS.flat_map { |klass| extract_classes_from_constants(klass) }
+    classes.concat(NON_CONSTANT_CLASSES)
     classes.uniq.sort
   end
 

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "../../keystone_components/safelist"
-
 module Keystone
   class InstallGenerator < Rails::Generators::Base
     desc "Set up Keystone Components in your Rails application"
@@ -34,6 +32,7 @@ module Keystone
       end
 
       # Inject or update @source inline safelist
+      require_relative "../../keystone_components/safelist"
       source_line = "#{SOURCE_MARKER} @source inline(\"#{Keystone::SAFELIST}\");"
       if content.include?(SOURCE_MARKER)
         gsub_file css_path, /#{Regexp.escape(SOURCE_MARKER)}.*$/, source_line

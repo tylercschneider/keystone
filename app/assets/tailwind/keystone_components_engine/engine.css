@@ -1,0 +1,2 @@
+/* Keystone UI components — tells Tailwind to scan for classes in component files */
+@source "../../components/**/*.{erb,rb}";

@@ -23,6 +23,7 @@ namespace :keystone do
       | `summary:` | yes | — |
       | `link:` | yes | — |
       | `cta:` | no | `"Read more"` |
+      | `edge_to_edge:` | no | `false` | removes side borders/radius on mobile when `true` |
 
       ### `ui_button`
 
@@ -74,6 +75,77 @@ namespace :keystone do
       | `empty_message:` | no | `nil` |
 
       `Column.new(key, header_text, mobile_hidden: false)` — use `mobile_hidden: true` to hide a column on small screens.
+
+      ### `ui_page`
+
+      ```erb
+      <%= ui_page(max_width: :lg) do %>
+        <!-- page content -->
+      <% end %>
+      ```
+
+      | Param | Required | Default | Values |
+      |-------|----------|---------|--------|
+      | `max_width:` | no | `:full` | `:sm`, `:md`, `:lg`, `:xl`, `:full` |
+      | `padding:` | no | `:standard` | `:standard`, `:none` |
+
+      ### `ui_section`
+
+      ```erb
+      <%= ui_section(title: "Products", subtitle: "All active items") do %>
+        <!-- section content -->
+      <% end %>
+      ```
+
+      | Param | Required | Default | Values |
+      |-------|----------|---------|--------|
+      | `title:` | no | `nil` | — |
+      | `subtitle:` | no | `nil` | — |
+      | `action:` | no | `nil` | slot for a trailing action |
+      | `spacing:` | no | `:md` | `:sm`, `:md`, `:lg` |
+
+      ### `ui_grid`
+
+      ```erb
+      <%= ui_grid(cols: { default: 1, sm: 2, lg: 4 }, gap: :lg) do %>
+        <!-- grid items -->
+      <% end %>
+      ```
+
+      | Param | Required | Default | Values |
+      |-------|----------|---------|--------|
+      | `cols:` | no | `{ default: 1 }` | hash of breakpoint → column count (1-12). Keys: `:default`, `:sm`, `:md`, `:lg` |
+      | `gap:` | no | `:md` | `:sm`, `:md`, `:lg`, `:xl` |
+      | `gap_x:` | no | `nil` | overrides `gap:` horizontally |
+      | `gap_y:` | no | `nil` | overrides `gap:` vertically |
+
+      ### `ui_panel`
+
+      ```erb
+      <%= ui_panel(padding: :lg) do %>
+        <!-- panel content -->
+      <% end %>
+      ```
+
+      | Param | Required | Default | Values |
+      |-------|----------|---------|--------|
+      | `padding:` | no | `:md` | `:sm`, `:md`, `:lg` |
+      | `radius:` | no | `:lg` | `:md`, `:lg`, `:xl` |
+      | `shadow:` | no | `true` | `true`, `false` |
+
+      ### `ui_card_link`
+
+      ```erb
+      <%= ui_card_link(href: product_path(@product)) do %>
+        <h3>Product name</h3>
+      <% end %>
+      ```
+
+      | Param | Required | Default | Values |
+      |-------|----------|---------|--------|
+      | `href:` | yes | — | — |
+      | `padding:` | no | `:md` | `:sm`, `:md`, `:lg` |
+      | `shadow:` | no | `true` | `true`, `false` |
     MARKDOWN
 
     content.chomp!

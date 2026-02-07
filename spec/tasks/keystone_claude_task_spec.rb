@@ -33,6 +33,24 @@ RSpec.describe "keystone:claude rake task" do
     expect(content).to include("ui_data_table")
   end
 
+  it "documents all eight components" do
+    Rake::Task["keystone:claude"].invoke
+
+    content = File.read(claude_md_path)
+    expect(content).to include("ui_page")
+    expect(content).to include("ui_section")
+    expect(content).to include("ui_grid")
+    expect(content).to include("ui_panel")
+    expect(content).to include("ui_card_link")
+  end
+
+  it "documents edge_to_edge parameter for ui_card" do
+    Rake::Task["keystone:claude"].invoke
+
+    content = File.read(claude_md_path)
+    expect(content).to include("edge_to_edge")
+  end
+
   it "appends to existing CLAUDE.md without clobbering content" do
     File.write(claude_md_path, "# My App\n\nExisting content.\n")
 

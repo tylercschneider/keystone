@@ -1,0 +1,15 @@
+<div class="<%= classes %>" role="alert">
+  <div class="flex">
+    <div class="flex-1">
+      <% if title? %>
+        <p class="<%= TITLE_CLASSES %>"><%= title_text %></p>
+      <% end %>
+      <p class="<%= MESSAGE_CLASSES %><%= ' mt-1' if title? %>"><%= message_text %></p>
+    </div>
+    <% if dismissible? %>
+      <button type="button" class="<%= DISMISS_CLASSES %>" data-action="click->dismiss#close" aria-label="Dismiss">
+        &times;
+      </button>
+    <% end %>
+  </div>
+</div>

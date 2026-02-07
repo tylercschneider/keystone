@@ -10,8 +10,10 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Reusable UI component system for Rails applications."
   spec.description = "Reusable UI component system for Rails applications using ViewComponent."
-  spec.homepage = "https://example.com/keystone_components"
+  spec.homepage = "https://github.com/tylercschneider/keystone"
   spec.license = "MIT"
+
+  spec.metadata["source_code_uri"] = "https://github.com/tylercschneider/keystone"
 
   spec.required_ruby_version = ">= 3.0.0"
 

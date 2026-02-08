@@ -29,12 +29,13 @@ RSpec.describe Keystone::InstallGenerator do
     expect(described_class.instance_methods).to include(:setup_tailwind)
   end
 
-  it "uses @source with gem path instead of inline safelist" do
+  it "uses a marker comment for build-time source injection" do
     expect(described_class::SOURCE_MARKER).to eq("/* keystone:source */")
   end
 
-  it "does not use inline safelist" do
-    expect(described_class.constants).not_to include(:SAFELIST)
+  it "does not inject local gem paths" do
+    source = File.read(File.expand_path("../../../lib/generators/keystone/install_generator.rb", __dir__))
+    expect(source).not_to include("Engine.root")
   end
 
   it "anchors injection after @import tailwindcss" do

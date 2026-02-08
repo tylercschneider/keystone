@@ -22,22 +22,14 @@ module Keystone
       end
 
       content = css_path.read
-      changed = false
 
-      # Inject or update @source pointing at the gem's component files
-      gem_path = KeystoneComponents::Engine.root
-      source_line = "#{SOURCE_MARKER} @source \"#{gem_path}/app/components/**/*.{erb,rb}\";"
-      if content.include?(SOURCE_MARKER)
-        gsub_file css_path, /#{Regexp.escape(SOURCE_MARKER)}.*$/, source_line
-        say "  ✔ Updated Keystone source path", :green
-        changed = true
+      # Inject marker comment (path is resolved at build time by keystone:inject_source)
+      unless content.include?(SOURCE_MARKER)
+        inject_into_file css_path, "#{SOURCE_MARKER}\n", after: /#{Regexp.escape(TAILWIND_IMPORT)}\n/
+        say "  ✔ Added Keystone source marker", :green
       else
-        inject_into_file css_path, "#{source_line}\n", after: /#{Regexp.escape(TAILWIND_IMPORT)}\n/
-        say "  ✔ Added Keystone source path", :green
-        changed = true
+        say "  ✔ Keystone source marker present", :green
       end
-
-      say "  ✔ application.css already up to date", :green unless changed
       say ""
       say "Done! See the README for component usage.", :green
     end

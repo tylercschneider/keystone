@@ -7,4 +7,9 @@ RSpec.describe "KeystoneComponents::Engine" do
     expect(source).not_to include("themes/base.css")
     expect(source).not_to include("themes/dark.css")
   end
+
+  it "defines a rake task to inject @source path before Tailwind builds" do
+    expect(source).to include("keystone:inject_source")
+    expect(source).to include("tailwindcss:build")
+  end
 end

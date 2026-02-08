@@ -29,15 +29,15 @@ RSpec.describe Keystone::InstallGenerator do
     expect(described_class.instance_methods).to include(:setup_tailwind)
   end
 
-  it "does not inject a useless engine CSS import" do
-    expect(described_class.constants).not_to include(:IMPORT_LINE)
+  it "uses @source with gem path instead of inline safelist" do
+    expect(described_class::SOURCE_MARKER).to eq("/* keystone:source */")
   end
 
-  it "has a SOURCE_MARKER for idempotent safelist injection" do
-    expect(described_class::SOURCE_MARKER).to eq("/* keystone:safelist */")
+  it "does not use inline safelist" do
+    expect(described_class.constants).not_to include(:SAFELIST)
   end
 
-  it "anchors safelist injection after @import tailwindcss" do
+  it "anchors injection after @import tailwindcss" do
     expect(described_class::TAILWIND_IMPORT).to eq('@import "tailwindcss";')
   end
 

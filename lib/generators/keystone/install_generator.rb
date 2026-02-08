@@ -5,7 +5,7 @@ module Keystone
     desc "Set up Keystone Components in your Rails application"
 
     TAILWIND_IMPORT = '@import "tailwindcss";'
-    SOURCE_MARKER = "/* keystone:safelist */"
+    SOURCE_MARKER = "/* keystone:source */"
 
     def setup_tailwind
       say ""
@@ -24,16 +24,16 @@ module Keystone
       content = css_path.read
       changed = false
 
-      # Inject or update @source inline safelist
-      require_relative "../../keystone_components/safelist"
-      source_line = "#{SOURCE_MARKER} @source inline(\"#{Keystone::SAFELIST}\");"
+      # Inject or update @source pointing at the gem's component files
+      gem_path = KeystoneComponents::Engine.root
+      source_line = "#{SOURCE_MARKER} @source \"#{gem_path}/app/components/**/*.{erb,rb}\";"
       if content.include?(SOURCE_MARKER)
         gsub_file css_path, /#{Regexp.escape(SOURCE_MARKER)}.*$/, source_line
-        say "  ✔ Updated Tailwind safelist", :green
+        say "  ✔ Updated Keystone source path", :green
         changed = true
       else
         inject_into_file css_path, "#{source_line}\n", after: /#{Regexp.escape(TAILWIND_IMPORT)}\n/
-        say "  ✔ Added Tailwind safelist", :green
+        say "  ✔ Added Keystone source path", :green
         changed = true
       end
 

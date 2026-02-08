@@ -12,4 +12,8 @@ RSpec.describe "KeystoneComponents::Engine" do
     expect(source).to include("keystone:inject_source")
     expect(source).to include("tailwindcss:build")
   end
+
+  it "restores marker-only line after Tailwind build so no local path is committed" do
+    expect(source).to include("keystone:clean_source")
+  end
 end

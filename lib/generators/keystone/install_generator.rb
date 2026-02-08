@@ -4,7 +4,7 @@ module Keystone
   class InstallGenerator < Rails::Generators::Base
     desc "Set up Keystone Components in your Rails application"
 
-    IMPORT_LINE = '@import "../builds/tailwind/keystone_components_engine";'
+    TAILWIND_IMPORT = '@import "tailwindcss";'
     SOURCE_MARKER = "/* keystone:safelist */"
 
     def setup_tailwind
@@ -24,13 +24,6 @@ module Keystone
       content = css_path.read
       changed = false
 
-      # Inject @import for the engine CSS entry point
-      unless content.include?(IMPORT_LINE)
-        inject_into_file css_path, "#{IMPORT_LINE}\n", after: /@import\s+"tailwindcss";\n/
-        say "  ✔ Added engine CSS import", :green
-        changed = true
-      end
-
       # Inject or update @source inline safelist
       require_relative "../../keystone_components/safelist"
       source_line = "#{SOURCE_MARKER} @source inline(\"#{Keystone::SAFELIST}\");"
@@ -39,7 +32,7 @@ module Keystone
         say "  ✔ Updated Tailwind safelist", :green
         changed = true
       else
-        inject_into_file css_path, "#{source_line}\n", after: /#{Regexp.escape(IMPORT_LINE)}\n/
+        inject_into_file css_path, "#{source_line}\n", after: /#{Regexp.escape(TAILWIND_IMPORT)}\n/
         say "  ✔ Added Tailwind safelist", :green
         changed = true
       end

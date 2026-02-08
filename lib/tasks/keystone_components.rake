@@ -229,10 +229,3 @@ namespace :keystone do
     puts "Keystone Components API reference written to #{path}"
   end
 end
-
-# Enhance tailwindcss:build to inject gem path before build and clean up after
-if Rake::Task.task_defined?("tailwindcss:build")
-  Rake::Task["tailwindcss:build"].enhance(["keystone:inject_source"]) do
-    Rake::Task["keystone:clean_source"].invoke
-  end
-end

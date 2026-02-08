@@ -22,14 +22,33 @@ module Keystone
       end
 
       content = css_path.read
+      changed = false
 
-      # Inject marker comment (path is resolved at build time by keystone:inject_source)
+      # Remove legacy @import for engine CSS (no longer needed)
+      legacy_import = '@import "../builds/tailwind/keystone_components_engine";'
+      if content.include?(legacy_import)
+        gsub_file css_path, /#{Regexp.escape(legacy_import)}\n?/, ""
+        say "  ✔ Removed legacy engine CSS import", :green
+        changed = true
+      end
+
+      # Remove legacy inline safelist (replaced by @source path injection)
+      legacy_safelist = "/* keystone:safelist */"
+      if content.include?(legacy_safelist)
+        gsub_file css_path, /#{Regexp.escape(legacy_safelist)}.*\n?/, ""
+        say "  ✔ Removed legacy inline safelist", :green
+        changed = true
+      end
+
+      # Inject marker comment (path is resolved at boot time by Railtie initializer)
+      content = css_path.read # re-read after removals
       unless content.include?(SOURCE_MARKER)
         inject_into_file css_path, "#{SOURCE_MARKER}\n", after: /#{Regexp.escape(TAILWIND_IMPORT)}\n/
         say "  ✔ Added Keystone source marker", :green
-      else
-        say "  ✔ Keystone source marker present", :green
+        changed = true
       end
+
+      say "  ✔ application.css already up to date", :green unless changed
       say ""
       say "Done! See the README for component usage.", :green
     end

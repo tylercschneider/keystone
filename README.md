@@ -16,8 +16,7 @@ prevent UI drift, and enable safe mass updates.
 ### Prerequisites
 
 - Rails 7+
-- **tailwindcss-rails v4+** — components use Tailwind CSS utility classes and ship a
-  `@source` directive that tells Tailwind where to scan for classes.
+- **tailwindcss-rails v4+**
 
 ### Steps
 
@@ -29,22 +28,34 @@ gem "keystone_components"
 
 2. Run `bundle install`.
 
-3. Run the install generator for guided setup:
+3. Run the install generator:
 
 ```bash
 rails generate keystone:install
 ```
 
-The generator checks for `tailwindcss-rails`, and optionally injects the
-required `@import` into your `app/assets/tailwind/application.css`:
+The generator adds a `/* keystone:source */` marker to your
+`app/assets/tailwind/application.css`. At boot time, a Railtie initializer
+resolves the gem's install path and injects a `@source` directive so Tailwind
+scans the component files directly. No manual path configuration needed.
 
-```css
-@import "../builds/tailwind/keystone_components_engine";
+### How Tailwind integration works
+
+- The generator commits only a marker comment — no machine-specific paths in git.
+- On every app boot (dev server, `assets:precompile`, CI), the initializer
+  replaces the marker with `@source "/path/to/gem/app/components/**/*.{erb,rb}"`.
+- Tailwind's JIT scanner finds all component classes automatically.
+- When keystone updates with new components, they're picked up on the next build
+  with no action required.
+
+### Upgrading from older versions
+
+Re-run the generator. It removes legacy `@import` and `@source inline(...)` lines
+automatically:
+
+```bash
+rails generate keystone:install
 ```
-
-If you prefer manual setup, add that import line yourself. You may also need
-to run `rails tailwindcss:engines` to generate the build entry point (this
-happens automatically on `tailwindcss:build` and `tailwindcss:watch`).
 
 ## Helper API (primary surface)
 

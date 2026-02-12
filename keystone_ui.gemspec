@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/keystone_components/version"
+require_relative "lib/keystone_ui/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "keystone_components"
-  spec.version = KeystoneComponents::VERSION
+  spec.name = "keystone_ui"
+  spec.version = KeystoneUi::VERSION
   spec.authors = ["Tyler Schneider"]
   spec.email = ["tylercschneider@gmail.com"]
 
@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "view_component", ">= 2.0"
 
   spec.post_install_message = <<~MSG
-    Keystone Components installed!
+    Keystone UI installed!
 
     Prerequisites: tailwindcss-rails v4+
 

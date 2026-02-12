@@ -10,7 +10,7 @@ RSpec.describe "keystone:claude rake task" do
 
   before(:all) do
     Rake.application = Rake::Application.new
-    Rake.application.rake_require("keystone_components", [File.expand_path("../../lib/tasks", __dir__)])
+    Rake.application.rake_require("keystone_ui", [File.expand_path("../../lib/tasks", __dir__)])
   end
 
   before do
@@ -27,7 +27,7 @@ RSpec.describe "keystone:claude rake task" do
     expect(File.exist?(claude_md_path)).to be true
 
     content = File.read(claude_md_path)
-    expect(content).to start_with("## Keystone Components")
+    expect(content).to start_with("## Keystone UI")
     expect(content).to include("ui_card")
     expect(content).to include("ui_button")
     expect(content).to include("ui_data_table")
@@ -58,7 +58,7 @@ RSpec.describe "keystone:claude rake task" do
 
     content = File.read(claude_md_path)
     expect(content).to start_with("# My App\n\nExisting content.")
-    expect(content).to include("## Keystone Components")
+    expect(content).to include("## Keystone UI")
     expect(content).to include("ui_data_table")
   end
 

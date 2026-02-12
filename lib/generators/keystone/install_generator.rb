@@ -2,14 +2,14 @@
 
 module Keystone
   class InstallGenerator < Rails::Generators::Base
-    desc "Set up Keystone Components in your Rails application"
+    desc "Set up Keystone UI in your Rails application"
 
     TAILWIND_IMPORT = '@import "tailwindcss";'
     SOURCE_MARKER = "/* keystone:source */"
 
     def setup_tailwind
       say ""
-      say "Keystone Components — setup", :green
+      say "Keystone UI — setup", :green
       say "=" * 40
       say ""
 
@@ -25,7 +25,7 @@ module Keystone
       changed = false
 
       # Remove legacy @import for engine CSS (no longer needed)
-      legacy_import = '@import "../builds/tailwind/keystone_components_engine";'
+      legacy_import = '@import "../builds/tailwind/keystone_components_engine";' # also handles pre-rename installs
       if content.include?(legacy_import)
         gsub_file css_path, /#{Regexp.escape(legacy_import)}\n?/, ""
         say "  ✔ Removed legacy engine CSS import", :green

@@ -1,6 +1,6 @@
-# Keystone Components
+# Keystone UI
 
-Keystone Components is a reusable UI component system for Rails applications built on the
+Keystone UI is a reusable UI component system for Rails applications built on the
 `view_component` gem. It provides stable, authoritative UI primitives that avoid ERB noise,
 prevent UI drift, and enable safe mass updates.
 
@@ -23,7 +23,7 @@ prevent UI drift, and enable safe mass updates.
 1. Add the gem to your Gemfile:
 
 ```ruby
-gem "keystone_components"
+gem "keystone_ui"
 ```
 
 2. Run `bundle install`.

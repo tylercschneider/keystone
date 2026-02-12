@@ -5,8 +5,8 @@ require_relative "lib/keystone_components/version"
 Gem::Specification.new do |spec|
   spec.name = "keystone_components"
   spec.version = KeystoneComponents::VERSION
-  spec.authors = ["Keystone"]
-  spec.email = ["dev@example.com"]
+  spec.authors = ["Tyler Schneider"]
+  spec.email = ["tylercschneider@gmail.com"]
 
   spec.summary = "Reusable UI component system for Rails applications."
   spec.description = "Reusable UI component system for Rails applications using ViewComponent."

@@ -312,7 +312,7 @@ Hover tooltip.
 
 ## Implementation Priority
 
-Based on consuming application needs (wyn3 shopping list & inventory):
+Based on consuming application needs:
 
 | Phase | Components | Rationale |
 |-------|------------|-----------|

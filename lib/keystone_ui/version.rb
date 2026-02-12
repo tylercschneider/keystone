@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-module KeystoneComponents
+module KeystoneUi
   VERSION = "0.4.1"
 end

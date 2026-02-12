@@ -8,7 +8,7 @@ namespace :keystone do
 
     content = css_path.read
     marker = "/* keystone:source */"
-    gem_path = KeystoneComponents::Engine.root
+    gem_path = KeystoneUi::Engine.root
     source_line = "#{marker} @source \"#{gem_path}/app/components/**/*.{erb,rb}\";"
 
     if content.include?(marker)
@@ -31,14 +31,14 @@ namespace :keystone do
     end
   end
 
-  desc "Append Keystone Components API reference to CLAUDE.md"
+  desc "Append Keystone UI API reference to CLAUDE.md"
   task :claude do
-    section_heading = "## Keystone Components"
+    section_heading = "## Keystone UI"
 
     content = <<~MARKDOWN
       #{section_heading}
 
-      Keystone Components is a ViewComponent gem. Use the helpers below in your ERB views.
+      Keystone UI is a ViewComponent gem. Use the helpers below in your ERB views.
 
       ### `ui_card`
 
@@ -226,6 +226,6 @@ namespace :keystone do
       File.write(path, "#{content}\n")
     end
 
-    puts "Keystone Components API reference written to #{path}"
+    puts "Keystone UI API reference written to #{path}"
   end
 end

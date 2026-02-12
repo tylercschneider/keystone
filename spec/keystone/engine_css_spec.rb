@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe "engine.css" do
-  let(:css) { File.read(File.expand_path("../../app/assets/tailwind/keystone_components_engine/engine.css", __dir__)) }
+  let(:css) { File.read(File.expand_path("../../app/assets/tailwind/keystone_ui_engine/engine.css", __dir__)) }
 
   it "contains a @source inline safelist with grid-cols classes" do
     expect(css).to include("@source inline(")

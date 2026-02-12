@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Keystone Components is a Rails gem providing reusable UI components built on `view_component`. It provides UI primitives that avoid ERB noise, prevent UI drift, and enable safe mass updates.
+Keystone UI is a Rails gem providing reusable UI components built on `view_component`. It provides UI primitives that avoid ERB noise, prevent UI drift, and enable safe mass updates.
 
 ## Commands
 
@@ -24,7 +24,7 @@ This is a Rails engine gem structured around ViewComponent. The three-layer arch
 1. **Components** (`app/components/keystone/ui/`) — Ruby classes inheriting `ViewComponent::Base` with explicit keyword arguments, paired with `.html.erb` templates. All UI logic lives here.
 2. **Helpers** (`app/helpers/keystone_ui_helper.rb`) — Thin render wrappers that delegate to components. Helpers contain no logic or conditionals. Consuming apps use helpers, not component classes directly.
 
-Components use Tailwind CSS utility classes directly. The engine ships a CSS file (`app/assets/tailwind/keystone_components_engine/engine.css`) with `@source` directives that tell Tailwind where to scan for classes. Host apps require `tailwindcss-rails` v4+.
+Components use Tailwind CSS utility classes directly. The engine ships a CSS file (`app/assets/tailwind/keystone_ui_engine/engine.css`) with `@source` directives that tell Tailwind where to scan for classes. Host apps require `tailwindcss-rails` v4+.
 
 ## Design Principles
 

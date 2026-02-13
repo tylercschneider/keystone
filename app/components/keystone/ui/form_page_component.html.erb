@@ -1,0 +1,10 @@
+<% content_for :form_page, true %>
+<% content_for :form_page_title, @title %>
+<% content_for :form_page_back_url, @back_url %>
+
+<div class="hidden md:block">
+  <h1 class="<%= TITLE_CLASSES %>"><%= @title %></h1>
+  <% if subtitle? %>
+    <p class="<%= SUBTITLE_CLASSES %>"><%= @subtitle %></p>
+  <% end %>
+</div>

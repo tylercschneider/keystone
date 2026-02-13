@@ -52,4 +52,20 @@ module KeystoneUiHelper
   def ui_alert(**args)
     render Keystone::Ui::AlertComponent.new(**args)
   end
+
+  def ui_form_page(**args)
+    render Keystone::Ui::FormPageComponent.new(**args)
+  end
+
+  def ui_show_page(**args)
+    render Keystone::Ui::ShowPageComponent.new(**args)
+  end
+
+  def ui_mobile_header(**args)
+    render Keystone::Ui::MobileHeaderComponent.new(**args)
+  end
+
+  def ui_mobile_actions(**args, &block)
+    render Keystone::Ui::MobileActionsComponent.new(**args), &block
+  end
 end

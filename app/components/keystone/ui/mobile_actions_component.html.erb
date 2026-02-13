@@ -1,0 +1,11 @@
+<div class="relative lg:hidden" data-controller="dropdown">
+  <button type="button"
+          data-action="click->dropdown#toggle click@window->dropdown#hide"
+          class="<%= BUTTON_CLASSES %>"
+          aria-label="Actions">
+    <%= ELLIPSIS_ICON.html_safe %>
+  </button>
+  <div data-dropdown-target="menu" class="<%= DROPDOWN_CLASSES %>">
+    <%= content %>
+  </div>
+</div>

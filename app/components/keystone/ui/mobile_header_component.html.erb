@@ -1,0 +1,8 @@
+<div class="lg:hidden">
+  <%= link_to @back_url, class: BACK_LINK_CLASSES, aria: { label: "Back" } do %>
+    <%= BACK_ICON.html_safe %>
+  <% end %>
+</div>
+<span class="<%= TITLE_CLASSES %>">
+  <%= @title %>
+</span>
